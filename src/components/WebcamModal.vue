@@ -86,9 +86,6 @@ export default class extends Vue implements IProvider {
   }
 
   snapshot() {
-    if (this.ctx === null) {
-      return;
-    }
     const size = Math.min(this.video.videoWidth, this.video.videoHeight);
     this.ctx.drawImage(
       this.video,
