@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  baseUrl: './',
   outputDir: 'docs',
   chainWebpack: config => {
     const defaultState = process.env.VUE_APP_DEFAULT_STATE; // mock or prod

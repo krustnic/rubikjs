@@ -1,4 +1,4 @@
-# Serverless Rebik's cube detection and color recognition
+# Serverless Rubik's cube detection and color recognition
 
 ## Project setup
 
