@@ -1,12 +1,15 @@
 <template>
-  <div class="solution">
-    <div ref="cube-doll" id="cube-doll"></div>
-    <div class="steps">
-      <MultipleStepsSolution name="Cross" :solution="plainSolution.cross"></MultipleStepsSolution>
-      <MultipleStepsSolution name="F2L" :solution="plainSolution.f2l"></MultipleStepsSolution>
-      <MultipleStepsSolution name="OLL" :solution="[plainSolution.oll]"></MultipleStepsSolution>
-      <MultipleStepsSolution name="PLL" :solution="[plainSolution.pll]"></MultipleStepsSolution>
+  <div class="fridrih">
+    <div v-show="isValidCube" class="solution">
+      <div ref="cube-doll" id="cube-doll"></div>
+      <div v-if="!isCubeSolved" class="steps">
+        <MultipleStepsSolution name="Cross" :solution="plainSolution.cross"></MultipleStepsSolution>
+        <MultipleStepsSolution name="F2L" :solution="plainSolution.f2l"></MultipleStepsSolution>
+        <MultipleStepsSolution name="OLL" :solution="[plainSolution.oll]"></MultipleStepsSolution>
+        <MultipleStepsSolution name="PLL" :solution="[plainSolution.pll]"></MultipleStepsSolution>
+      </div>
     </div>
+    <div v-show="!isValidCube">Cube invalid!</div>
   </div>
 </template>
 
@@ -20,11 +23,15 @@ import MultipleStepsSolution from './MultipleStepsSolution.vue';
 import SingleStepsSolution from './SingleStepsSolution.vue';
 
 @Component({
+  name: 'FridrihView',
   components: { MultipleStepsSolution, SingleStepsSolution },
 })
 export default class extends Vue {
+  @State('isValidCube') isValidCube!: boolean;
+
   @Getter('centers') centers!: string[];
   @Getter('plainSolution') plainSolution!: Solution;
+  @Getter('isCubeSolved') isCubeSolved!: boolean;
 
   get fullAlg(): Alg {
     return getFullAlgorithm(this.plainSolution);
@@ -74,6 +81,14 @@ export default class extends Vue {
 </script>
 
 <style scoped>
+.fridrih {
+  min-width: 600px;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .solution {
   display: flex;
   flex-wrap: wrap;
@@ -82,6 +97,5 @@ export default class extends Vue {
 }
 
 .steps {
-  width: 400px;
 }
 </style>

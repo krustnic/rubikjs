@@ -91,7 +91,7 @@ const actions: ActionTree<IState, any> = {
   },
 };
 
-const getters: GetterTree<IState, any> = {
+const globalGetters: GetterTree<IState, any> = {
   centers(state: IState): string[] {
     if (state.tripletColor1 === null || state.tripletColor2 === null) {
       return [];
@@ -121,11 +121,24 @@ const getters: GetterTree<IState, any> = {
 
     return plainSolution;
   },
+  isCubeSolved(state: IState, getters: any): boolean {
+    const solution = getters.plainSolution as Solution;
+    if (
+      solution.cross.length === 0 &&
+      solution.f2l.length === 0 &&
+      solution.oll.length === 0 &&
+      solution.pll.length === 0
+    ) {
+      return true;
+    }
+
+    return false;
+  },
 };
 
 export default new Vuex.Store({
   state: globalState,
   mutations,
   actions,
-  getters,
+  getters: globalGetters,
 });

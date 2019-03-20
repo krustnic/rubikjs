@@ -15,12 +15,12 @@ export default new Router({
       component: Test,
     },
     {
-      path: '/home',
+      path: '/',
       name: 'home',
       component: Home,
     },
     {
-      path: '/',
+      path: '/debug',
       name: 'debug',
       component: Debug,
     },

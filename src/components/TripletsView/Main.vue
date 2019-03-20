@@ -41,11 +41,30 @@ export default class extends Vue {
   @Prop(Object) tripletColor2!: TripletColors;
 
   @Action('recognizeCube') recognizeCube: any;
+  @Action('resolvePuzzle') resolvePuzzle!: any;
   @Mutation('setCubeTriplet1') setCubeTriplet1!: any;
   @Mutation('setCubeTriplet2') setCubeTriplet2!: any;
 
   isShow: boolean = false;
   currentIndex: number = 0;
+
+  @Watch('tripletColor1')
+  onTripletColor1Update() {
+    this.resolve();
+  }
+
+  @Watch('tripletColor2')
+  onTripletColor2Update() {
+    this.resolve();
+  }
+
+  mounted() {
+    this.resolve();
+  }
+
+  resolve() {
+    this.resolvePuzzle();
+  }
 
   openVideo({ index }: { index: number }) {
     this.currentIndex = index;
@@ -106,5 +125,6 @@ export default class extends Vue {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 450px;
 }
 </style>
