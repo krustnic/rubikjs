@@ -1,7 +1,8 @@
 <template>
   <div class="fridrih">
-    <div v-show="isValidCube" class="solution">
-      <div ref="cube-doll" id="cube-doll"></div>
+    <div v-show="!isValidCube">Cube invalid!</div>
+    <div class="solution" :class="{hidden: !isValidCube}">
+      <div ref="cube" id="cube-doll"></div>
       <div v-if="!isCubeSolved" class="steps">
         <MultipleStepsSolution name="Cross" :solution="plainSolution.cross"></MultipleStepsSolution>
         <MultipleStepsSolution name="F2L" :solution="plainSolution.f2l"></MultipleStepsSolution>
@@ -9,7 +10,6 @@
         <MultipleStepsSolution name="PLL" :solution="[plainSolution.pll]"></MultipleStepsSolution>
       </div>
     </div>
-    <div v-show="!isValidCube">Cube invalid!</div>
   </div>
 </template>
 
@@ -51,7 +51,7 @@ export default class extends Vue {
   }
 
   removeCube() {
-    const cube = this.$refs['cube-doll'] as HTMLElement;
+    const cube = this.$refs.cube as HTMLElement;
     while (cube.firstChild) {
       cube.removeChild(cube.firstChild);
     }
@@ -87,6 +87,7 @@ export default class extends Vue {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .solution {
@@ -96,6 +97,7 @@ export default class extends Vue {
   justify-content: center;
 }
 
-.steps {
+.hidden {
+  visibility: hidden;
 }
 </style>
