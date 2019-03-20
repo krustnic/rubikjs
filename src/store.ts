@@ -111,7 +111,13 @@ const globalGetters: GetterTree<IState, any> = {
   },
   // Return solution with replaced "prime" to "'"
   plainSolution(state: IState): Solution {
-    const solution = state.solveMoves;
+    const solution: Solution = state.solveMoves || {
+      cross: [],
+      f2l: [],
+      oll: '',
+      pll: '',
+    };
+
     const plainSolution: Solution = {
       cross: replaceInArray(solution.cross),
       f2l: replaceInArray(solution.f2l),
