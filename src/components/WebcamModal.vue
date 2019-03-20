@@ -8,7 +8,9 @@
 import { NavigatorWrapper, IProvider } from '@/core/types/app';
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
-@Component
+@Component({
+  name: 'WebcamModal',
+})
 export default class extends Vue implements IProvider {
   @Prop({ type: Boolean, default: false }) show!: boolean;
 
@@ -100,7 +102,8 @@ export default class extends Vue implements IProvider {
     );
 
     const mat = cv.matFromImageData(this.ctx.getImageData(0, 0, 400, 400));
-    this.$emit('grab', mat);
+    // this.$emit('grab', mat);
+    return mat;
   }
 }
 </script>

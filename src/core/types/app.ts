@@ -51,7 +51,7 @@ export interface NavigatorWrapper extends Navigator {
 }
 
 export interface IProvider {
-  snapshot(): void;
+  snapshot(): Mat;
 }
 
 export interface Configuration {

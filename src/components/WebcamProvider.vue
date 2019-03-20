@@ -9,19 +9,18 @@
 
 <script lang="ts">
 import { NavigatorWrapper, IProvider } from '@/core/types/app';
+import { Mat } from '@/core/types/opencv';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class extends Vue implements IProvider {
   imageCapture: any = null;
   video!: HTMLVideoElement;
-  ctx = document.createElement('canvas').getContext('2d');
+  ctx: CanvasRenderingContext2D = document
+    .createElement('canvas')
+    .getContext('2d') as CanvasRenderingContext2D;
 
   created() {
-    if (this.ctx === null) {
-      return;
-    }
-
     this.ctx.canvas.width = 400;
     this.ctx.canvas.height = 400;
   }
@@ -70,7 +69,7 @@ export default class extends Vue implements IProvider {
     }
   }
 
-  snapshot() {
+  snapshot(): Mat {
     // if (this.imageCapture === null) {
     //   return;
     // }
@@ -97,10 +96,6 @@ export default class extends Vue implements IProvider {
     //   const mat = cv.matFromImageData(this.ctx.getImageData(0, 0, 128, 128));
     //   this.$emit('grab', mat);
     // });
-
-    if (this.ctx === null) {
-      return;
-    }
     const size = Math.min(this.video.videoWidth, this.video.videoHeight);
     this.ctx.drawImage(
       this.video,
@@ -116,6 +111,7 @@ export default class extends Vue implements IProvider {
 
     const mat = cv.matFromImageData(this.ctx.getImageData(0, 0, 400, 400));
     this.$emit('grab', mat);
+    return mat;
   }
 }
 </script>
